@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Negocios</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.23/jspdf.plugin.autotable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>Panel de Negocios</h1>
+            <input type="text" id="businessName" placeholder="Ingrese el nombre del negocio">
+        </header>
+        <main>
+            <div class="file-input">
+                <input type="file" id="csvFile" accept=".csv">
+                <button id="analyzeButton">Analizar Datos</button>
+            </div>
+            <div class="results" id="results">
+                <div class="card" id="businessNameCard">
+                    <h2>Nombre del Negocio</h2>
+                    <p id="businessNameDisplay">No establecido</p>
+                </div>
+                <div class="card" id="totalUsersCard">
+                    <h2>Total de Usuarios</h2>
+                    <p id="totalUsers">-</p>
+                </div>
+                <div class="card" id="totalTransactionsCard">
+                    <h2>Total de Transacciones</h2>
+                    <p id="totalTransactions">-</p>
+                </div>
+                <div class="card" id="avgTicketCard">
+                    <h2>Ticket Promedio</h2>
+                    <p id="avgTicket">-</p>
+                </div>
+                <div class="card" id="avgVisitsCard">
+                    <h2>Visitas Promedio</h2>
+                    <p id="avgVisits">-</p>
+                </div>
+            </div>
+            <div class="date-filters">
+                <label for="startDate">Fecha de Inicio:</label>
+                <input type="date" id="startDate">
+                <label for="endDate">Fecha de Fin:</label>
+                <input type="date" id="endDate">
+                <button id="filterButton">Aplicar Filtro</button>
+            </div>
+            <div class="mom-table-container">
+                <h2>Análisis Mes a Mes</h2>
+                <table id="momTable">
+                    <thead>
+                        <tr>
+                            <th>Mes</th>
+                            <th colspan="2">GMV</th>
+                            <th colspan="2">Usuarios Únicos</th>
+                            <th colspan="2">Visitas Promedio</th>
+                            <th colspan="2">Visitas</th>
+                            <th colspan="2">Transacción Promedio</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th>Valor</th>
+                            <th>MoM (%)</th>
+                            <th>Valor</th>
+                            <th>MoM (%)</th>
+                            <th>Valor</th>
+                            <th>MoM (%)</th>
+                            <th>Valor</th>
+                            <th>MoM (%)</th>
+                            <th>Valor</th>
+                            <th>MoM (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Las filas de la tabla se llenarán dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+            <div class="chart-container">
+                <canvas id="transactionsChart" height="300"></canvas>
+                <canvas id="transactionDistributionChart" height="300"></canvas>
+            </div>
+            <div class="chart-container">
+                <canvas id="frequencyChart" width="400" height="300"></canvas>
+            </div>
+            <div class="growth-chart-container" id="growthChartContainer" style="display: none;">
+                <div class="growth-percentage" id="growthPercentage">Calculando...</div>
+                <div class="growth-description" id="growthDescription">Promedio crecimiento mes a mes</div>
+                <div class="chart-title">Usuarios</div>
+                <div class="bar-chart-container">
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+            <button id="downloadPdfButton">Descargar PDF</button>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
